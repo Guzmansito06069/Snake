@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+		<title>Snake v1.0</title>
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+	
+	</head>
+	
+	<body>
+
+	
+		<canvas id="tablero" width="400" height="400"></canvas>
+		<div id="score">Puntaje: 0 </div>
+		<input id="idPlay" value="Play" onclick="start();" type="button">
+	
+
+		<style>
+
+			body { background-color: #6FE0E4; }
+
+			.content {
+				top: 50%;
+				left: 50%;
+			}
+
+			#tablero {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			#score {
+				position: absolute;
+				z-index: 999;
+				bottom: -1;
+				top: 5%;
+				left: 42%;
+        		text-align: center;
+        		font-size: 60px;
+    		}
+
+			#idPlay {
+				position: absolute;
+				z-index: 999;
+				bottom: -1;
+				top: 85%;
+				left: 48%;
+				text-align: center;
+        		font-size: 20px;
+			}
+
+		</style>
+		
+		<script src="snakeScript.js" ></script>
+		
+	</body>
+
+</html>
