@@ -1,4 +1,3 @@
-
 //Snake V1
 //Hecho por https://github.com/Gonzacap
 //Inspirado en https://www.youtube.com/watch?v=GbPAYZ7tXUY&ab_channel=Appdelante
@@ -56,8 +55,10 @@ const DOWN_KEY = 40;
 
 
 //-------------------- Start game --------------------
-main();
-generarComida();   
+
+limpiarLienzo();
+generarComida();  
+
 //----------------------------------------------------
 
 //funcion principal
@@ -66,17 +67,19 @@ function main() {
      moviendo = false;
      juegoActivo = true;
   
-     setTimeout( function onTick(){  //esta forma de codigo es eiciente???
+     setTimeout( function onTick(){  //esta forma de codigo es eficiente???
 
-          if (coliciones()){
+          //console.log("width: "+tablero.width)
+          //console.log("height: "+tablero.height)
+
+          if (/*false*/coliciones()){
                
                limpiarLienzo();
                snake = [];
                alert("Oops! Has perdido");
                dibujarSerpiente();
                
-               juegoActivo = false;
-               
+               juegoActivo = false;  
 
                return;
           }
@@ -91,7 +94,7 @@ function main() {
 
 }
 
-//(1)
+//(1) Muestrar el tablero y la serpiente
 
 function limpiarLienzo() {
 
@@ -118,7 +121,7 @@ function dibujarPartes(snakePart) {
      snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
 
-//(2)
+//(2) Hacer que la serpiente se mueva automáticamente
 
 /*function desplasarSnake() {
 
@@ -127,9 +130,10 @@ function dibujarPartes(snakePart) {
      snake.pop();
 }*/
 
-//(3)
+//(3) Usar las teclas de flecha para cambiar la dirección de la serpiente
 
 document.addEventListener("keydown", moverSnake); //al precionar una tecla llamo a moverSnake
+document.addEventListener("keypress", moverSnake); //al precionar una tecla llamo a moverSnake
 
 function moverSnake(event) {
     
@@ -177,7 +181,6 @@ function coliciones() {
      const limiteDer = snake[0].x >= tablero.width - 10;
      const limiteSup = snake[0].y <= 0;
      const limiteInf = snake[0].y >= tablero.height - 10;
-     //return (limiteIzq || limiteDer || limiteSup || limiteInf); //valor booleano
 
      if(limiteIzq || limiteDer || limiteSup || limiteInf){
           console.log("chocando con el tablero");
@@ -256,12 +259,3 @@ function start(){
           main();
      }
 }
-
-/*tablero.addEventListener('click', (e) => {
-
-     if (!juegoActivo) {
-          snake = snake_0;
-          puntaje = 0;
-          main();
-     }
-})*/

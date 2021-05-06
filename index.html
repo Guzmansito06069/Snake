@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 
@@ -58,4 +59,85 @@
 		
 	</body>
 
+=======
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel="stylesheet" href="reset.css">
+		<title>Snake v1.0</title>
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+	
+	</head>
+	
+	<body>
+
+		<main>
+			<div id="score">Puntaje: 0 </div>
+			<canvas id="tablero" width="400" height="400"></canvas>
+			<input id="idPlay" value="Play" onclick="start();" type="button">
+		</main>
+	
+
+		<style>
+
+			body { 
+				background-color: #6FE0E4; 
+				/*overflow: hidden;*/
+			}
+
+			main{
+				background-color: yellow;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+				align-items: center;
+				flex-direction: column;
+			}
+
+			#score {
+        		text-align: center;
+        		font-size: 60px;
+				padding: 5px;
+				margin: 10px;
+				z-index: 99;
+    		}
+
+			#tablero {
+				width: 400px;
+				height: 400px;
+				margin: 10px auto;
+			}
+
+			#idPlay {
+				text-align: center;
+        		font-size: 20px;
+				padding: 5px;
+				margin: 10px;
+				z-index: 99;
+			}
+
+			@media (max-width: 404px){
+
+				main{
+					background-color: red;
+					width: auto;
+					margin: auto;
+				}
+
+				#tablero {
+					width: 358px;
+					height: 358px;
+					margin: 10px auto;
+				}
+
+			}
+
+		</style>
+		
+		<script src="snakeScript.js" ></script>
+		
+	</body>
+
+>>>>>>> master
 </html>
