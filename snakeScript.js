@@ -271,18 +271,21 @@ var scrollFunc = function (e) {
      if (e.wheelDelta) {  
           // Evaluación del navegador IE, eventos de rueda de Google        
           if (e.wheelDelta> 0) {// Cuando la polea se enrolla            
-               console.log ("La polea se desplaza hacia arriba");        
+               //console.log ("La polea se desplaza hacia arriba");        
+               alert("La polea se desplaza hacia arriba");
           }       
           if (e.wheelDelta <0) {// Cuando la polea rueda hacia abajo           
-               console.log ("desplazamiento del rodillo hacia abajo");
+               //console.log ("desplazamiento del rodillo hacia abajo");
+               alert("desplazamiento del rodillo hacia abajo");
           }    
      } 
      else if (e.detail) {// Evento de rueda de Firefox       
         if (e.detail> 0) {// Cuando la polea se enrolla            
-               console.log ("La polea se desplaza hacia arriba");
+               //console.log ("La polea se desplaza hacia arriba");
+               alert("La polea se desplaza hacia arriba");
           }        
           if (e.detail <0) {// Cuando la polea se desplaza hacia abajo            
-               console.log ("desplazamiento del rodillo hacia abajo");
+               alert("desplazamiento del rodillo hacia abajo");
           }   
      }
 }
