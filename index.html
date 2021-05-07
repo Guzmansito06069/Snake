@@ -15,7 +15,15 @@
 		<main>
 			<div id="score">Puntaje: 0 </div>
 			<canvas id="tablero" width="400" height="400"></canvas>
-			<input id="idPlay" value="Play" onclick="start();" type="button">
+			<div id="content">
+				<div id="cruceta">
+					<div class="btn" id="up"></div>
+					<div class="btn" id="left"></div>
+					<div class="btn" id="right"></div>
+					<div class="btn" id="down"></div>
+				</div>
+				<input id="idPlay" value="Play" onclick="start();" type="button">
+			</div>
 		</main>
 	
 
@@ -56,6 +64,10 @@
 				margin: 10px auto;
 			}
 
+			#cruceta{
+				display: none;
+			}
+
 			#idPlay {
 				text-align: center;
         		font-size: 30px;
@@ -82,6 +94,95 @@
 					margin: 10px auto;
 				}
 
+				#idPlay {
+					height: 50%;
+					margin: auto 10px;
+				}
+
+				#content{
+					display: flex;
+					flex-wrap: nowrap;
+					justify-content:end;
+					width: 80%;
+				}
+
+				.btn{
+					width: 0; 
+     				height: 0;
+					margin: auto;
+					outline: 1px solid gray;
+					border-bottom: 30px solid #f05a5a;
+     				border-left: 15px solid transparent;
+     				border-right: 15px solid transparent;
+				}
+
+				.btn:hover{
+					background-color: rgb(170, 170, 170);
+					border-bottom: 30px solid #f74f4f;
+					box-shadow:5px 5px 2px rgba(0,0,0,.5);
+  					-moz-box-shadow:5px 5px 2px rgba(0,0,0,.5);
+  					-webkit-box-shadow: 5px 5px 2px rgba(0,0,0,.5);
+					z-index: 99;
+				}
+
+				#up{
+					grid-area: up;
+					-o-transform:rotate(0deg);
+    				-webkit-transform:rotate(0deg);
+    				-moz-transform:rotate(0deg);
+				}
+
+				#down{
+					grid-area: down;
+					-o-transform:rotate(180deg);
+    				-webkit-transform:rotate(180deg);
+    				-moz-transform:rotate(180deg);
+				}
+
+				#left {
+					grid-area: left;
+					-o-transform:rotate(-90deg);
+    				-webkit-transform:rotate(-90deg);
+    				-moz-transform:rotate(-90deg);
+				}
+
+				#right {
+					grid-area: right;
+					-o-transform:rotate(90deg);
+    				-webkit-transform:rotate(90deg);
+    				-moz-transform:rotate(90deg);
+				}
+
+				#cruceta{
+					display: grid;
+					background-color: rgb(145, 145, 145);
+					grid-template-areas:
+						". up ."
+						"left . right"
+						". down .";
+					width: 100px;
+					height: 100px;
+					padding: 2px;
+					margin: auto;
+					border-radius: 100%;
+					border: 1px solid black;
+				}
+
+				/*#cruceta:befor{
+ 	 				border-bottom: 33px solid yellowgreen; 
+  					border-left: 33px solid transparent;
+ 					border-right: 33px solid transparent; 
+  					width: 33px; 
+					height: 0; 
+				} 
+ 
+				#cruceta:after {
+		 	 		border-top: 33px solid yellow; 
+  					border-left: 33px solid transparent; 
+  					border-right: 33px solid transparent; 
+  					width: 33px; 
+  					height: 0; 
+				}*/
 			}
 
 		</style>
