@@ -18,7 +18,7 @@
 			<div id="content">
 				<div id="cruceta">
 					<div class="btn" id="up"></div>
-					<div class="btn" id="left"></div>
+					<div class="btn" id="left" onclick="moverSnake(new KeyboardEvent({'which':37}));"></div>
 					<div class="btn" id="right"></div>
 					<div class="btn" id="down"></div>
 				</div>
@@ -103,7 +103,7 @@
 					display: flex;
 					flex-wrap: nowrap;
 					justify-content:end;
-					width: 80%;
+					width: 90%;
 				}
 
 				.btn{
@@ -111,14 +111,14 @@
      				height: 0;
 					margin: auto;
 					outline: 1px solid gray;
-					border-bottom: 30px solid #f05a5a;
-     				border-left: 15px solid transparent;
-     				border-right: 15px solid transparent;
+					border-bottom: 40px solid #f05a5a;
+     				border-left: 20px solid transparent;
+     				border-right: 20px solid transparent;
 				}
 
 				.btn:hover{
 					background-color: rgb(170, 170, 170);
-					border-bottom: 30px solid #f74f4f;
+					border-bottom: 40px solid #f74f4f;
 					box-shadow:5px 5px 2px rgba(0,0,0,.5);
   					-moz-box-shadow:5px 5px 2px rgba(0,0,0,.5);
   					-webkit-box-shadow: 5px 5px 2px rgba(0,0,0,.5);
@@ -160,8 +160,8 @@
 						". up ."
 						"left . right"
 						". down .";
-					width: 100px;
-					height: 100px;
+					width: 130px;
+					height: 130px;
 					padding: 2px;
 					margin: auto;
 					border-radius: 100%;

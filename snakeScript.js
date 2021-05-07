@@ -141,6 +141,8 @@ function moverSnake(event) {
       
      moviendo = true;
 
+     console.log(event);
+
      const keyPressed = event.keyCode;
      const haciaArriba = (dy === (-1*va));
      const haciaAbajo = (dy === va);
@@ -259,3 +261,33 @@ function start(){
           main();
      }
 }
+
+
+var scrollFunc = function (e) {   
+
+     var direct = 0;    
+     e = e || window.event;
+
+     if (e.wheelDelta) {  
+          // Evaluación del navegador IE, eventos de rueda de Google        
+          if (e.wheelDelta> 0) {// Cuando la polea se enrolla            
+               console.log ("La polea se desplaza hacia arriba");        
+          }       
+          if (e.wheelDelta <0) {// Cuando la polea rueda hacia abajo           
+               console.log ("desplazamiento del rodillo hacia abajo");
+          }    
+     } 
+     else if (e.detail) {// Evento de rueda de Firefox       
+        if (e.detail> 0) {// Cuando la polea se enrolla            
+               console.log ("La polea se desplaza hacia arriba");
+          }        
+          if (e.detail <0) {// Cuando la polea se desplaza hacia abajo            
+               console.log ("desplazamiento del rodillo hacia abajo");
+          }   
+     }
+}
+
+// Vinculando el evento de la rueda de desplazamiento a la página if (document.addEventListener) {
+document.addEventListener('DOMMouseScroll', scrollFunc, false);
+// La rueda de desplazamiento activa el método scrollFunc
+window.onmousewheel = document.onmousewheel = scrollFunc;
