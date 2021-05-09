@@ -132,42 +132,45 @@ function dibujarPartes(snakePart) {
 
 //(3) Usar las teclas de flecha para cambiar la dirección de la serpiente
 
-document.addEventListener("keydown", moverSnake); //al precionar una tecla llamo a moverSnake
-document.addEventListener("keypress", moverSnake); //al precionar una tecla llamo a moverSnake
+document.addEventListener("keydown", movementWithKey); //al precionar una tecla llamo a moverSnake
+document.addEventListener("keypress", movementWithKey); //al precionar una tecla llamo a moverSnake
 
-function moverSnake(event) {
+function movementWithKey(event){
+
+     const keyPressed = event.keyCode;
+     moverSnake(keyPressed);
+}
+
+function moverSnake(val) {
     
      if (moviendo) return;
       
      moviendo = true;
-
-     console.log(event);
-
-     const keyPressed = event.keyCode;
+     
      const haciaArriba = (dy === (-1*va));
      const haciaAbajo = (dy === va);
      const haciaDerecha = (dx === va);
      const haciaIzquierda = (dx === (-1*va));
 
-     if (keyPressed === LEFT_KEY && !haciaDerecha) {
+     if (val === LEFT_KEY && !haciaDerecha) {
           dx = -1*va;
           dy = 0;
      }
-     if (keyPressed === UP_KEY && !haciaAbajo) {
+     if (val === UP_KEY && !haciaAbajo) {
           dx = 0;
           dy = -1*va;
      }
-     if (keyPressed === RIGHT_KEY && !haciaIzquierda) {
+     if (val === RIGHT_KEY && !haciaIzquierda) {
           dx = va;
           dy = 0;
      }
-     if (keyPressed === DOWN_KEY && !haciaArriba) {
+     if (val === DOWN_KEY && !haciaArriba) {
           dx = 0;
           dy = va;
      }
 }
 
-//(4)
+//(4) Incorporar coliciones
 
 function coliciones() {
 
@@ -191,7 +194,7 @@ function coliciones() {
      else return false;
 }
 
-//(5)
+//(5) Incorporar comida
 
 function coordenadaRandom(min, max) {
   return Math.round((Math.random() * (max-min) + min) / 10) * 10;
@@ -216,7 +219,7 @@ function dibujarComida() {
   snakeboard_ctx.strokeRect(food_x, food_y, 10, 10);
 }
 
-//(6)
+//(6) Crecer y Puntuación
 
 function desplasarSnake() {
 
@@ -236,7 +239,7 @@ function desplasarSnake() {
      }
 }
 
-//(7)
+//(7) Cambiar dificultad
 
 //SE GENERAN INCONSISTENCIAS CON LAS COORDENADAS DE LA COMIDA
 
@@ -249,7 +252,7 @@ function desplasarSnake() {
      }
 }*/
 
-//(8)
+//(8) Reiniciar
 
 function start(){
 
@@ -263,34 +266,76 @@ function start(){
 }
 
 
-var scrollFunc = function (e) {   
+//----------------Touch Displacement----------------//
 
-     var direct = 0;    
-     e = e || window.event;
+/*var display = document.getElementById ("tablero");
+var touchesList = new Array;
 
-     if (e.wheelDelta) {  
-          // Evaluación del navegador IE, eventos de rueda de Google        
-          if (e.wheelDelta> 0) {// Cuando la polea se enrolla            
-               //console.log ("La polea se desplaza hacia arriba");        
-               alert("La polea se desplaza hacia arriba");
-          }       
-          if (e.wheelDelta <0) {// Cuando la polea rueda hacia abajo           
-               //console.log ("desplazamiento del rodillo hacia abajo");
-               alert("desplazamiento del rodillo hacia abajo");
-          }    
-     } 
-     else if (e.detail) {// Evento de rueda de Firefox       
-        if (e.detail> 0) {// Cuando la polea se enrolla            
-               //console.log ("La polea se desplaza hacia arriba");
-               alert("La polea se desplaza hacia arriba");
-          }        
-          if (e.detail <0) {// Cuando la polea se desplaza hacia abajo            
-               alert("desplazamiento del rodillo hacia abajo");
-          }   
-     }
+function startTouch(event) {
+    event.preventDefault();
+    console.log("START");
 }
 
-// Vinculando el evento de la rueda de desplazamiento a la página if (document.addEventListener) {
-document.addEventListener('DOMMouseScroll', scrollFunc, false);
-// La rueda de desplazamiento activa el método scrollFunc
-window.onmousewheel = document.onmousewheel = scrollFunc;
+function getTouchPos (event) {
+
+    var rect = display.getBoundingClientRect ();
+
+    return {
+        x: event.touches [0] .clientX-rect.left,
+        y: event.touches [0] .clientY-rect.top
+    };
+}
+
+function momevent(event){
+
+    var displacement = getTouchPos(event);
+    //console.log("X: "+displacement.x+", Y: "+displacement.y);
+    touchesList.push(displacement);
+}
+
+function calculateMovement(event) {
+ 
+    if(touchesList[0] === undefined) return;
+
+    p = 30; //precision
+
+    var x1 = touchesList[0].x;
+    var x2 = touchesList[touchesList.length-1].x;
+    var y1 = touchesList[0].y;
+    var y2 = touchesList[touchesList.length-1].y;
+
+    var h = Math.abs(x2-x1);
+    var v = Math.abs(y2-y1);
+
+    var a = Math.round(Math.trunc(h)/p);
+    var b = Math.round(Math.trunc(v)/p);
+
+    if(a == b || a-1==b || a+1==b){
+        console.log("Diagonal Movement");//NO DISPLACEMENT
+    }
+    if(a > b){
+        //console.log("Horizontal Movement");
+
+        if(x1<x2) moverSnake(39);
+        else moverSnake(37);
+    }
+    else{
+        //console.log("Vertical Movement");
+
+        if(y1<y2) moverSnake(40);
+        else moverSnake(38);
+    }
+    
+    touchesList = [];
+}
+
+function touchStartup() {
+  var el = document.getElementsByTagName("canvas")[0];
+
+  el.addEventListener("touchstart", startTouch, false);
+  el.addEventListener("touchend", calculateMovement, false);
+  //el.addEventListener("touchcancel", handleCancel, false);
+  el.addEventListener("touchmove", momevent, false);
+}
+
+touchStartup();*/
