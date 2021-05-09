@@ -21,10 +21,10 @@
 			<canvas id="tablero" width="400" height="400"></canvas>
 			<div id="content">
 				<div id="cruceta">
-					<div class="btn" id="up"></div>
-					<div class="btn" id="left"></div>
-					<div class="btn" id="right"></div>
-					<div class="btn" id="down"></div>
+					<div class="btn" id="up" onclick="moverSnake(UP_KEY)"></div>
+					<div class="btn" id="left" onclick="moverSnake(LEFT_KEY)"></div>
+					<div class="btn" id="right" onclick="moverSnake(RIGHT_KEY)"></div>
+					<div class="btn" id="down" onclick="moverSnake(DOWN_KEY)"></div>
 				</div>
 				<input id="idPlay" value="Play" onclick="start();" type="button">
 			</div>

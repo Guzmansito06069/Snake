@@ -1,4 +1,4 @@
-//Snake V1
+//Snake V1.5
 //Hecho por https://github.com/Gonzacap
 //Inspirado en https://www.youtube.com/watch?v=GbPAYZ7tXUY&ab_channel=Appdelante
 //Y basado en https://www.educative.io/blog/javascript-snake-game-tutorial
@@ -137,11 +137,14 @@ document.addEventListener("keypress", movementWithKey); //al precionar una tecla
 
 function movementWithKey(event){
 
+     console.log("tecla press "+event.keyCode);
      const keyPressed = event.keyCode;
      moverSnake(keyPressed);
 }
 
 function moverSnake(val) {
+
+     console.log("valor: "+val);
     
      if (moviendo) return;
       
