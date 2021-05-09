@@ -271,7 +271,7 @@ function start(){
 
 //----------------Touch Displacement----------------//
 
-/*var display = document.getElementById ("tablero");
+var display = document.getElementById ("tablero");
 var touchesList = new Array;
 
 function startTouch(event) {
@@ -319,14 +319,14 @@ function calculateMovement(event) {
     if(a > b){
         //console.log("Horizontal Movement");
 
-        if(x1<x2) moverSnake(39);
-        else moverSnake(37);
+        if(x1<x2) moverSnake(RIGHT_KEY);
+        else moverSnake(LEFT_KEY);
     }
     else{
         //console.log("Vertical Movement");
 
-        if(y1<y2) moverSnake(40);
-        else moverSnake(38);
+        if(y1<y2) moverSnake(DOWN_KEY);
+        else moverSnake(UP_KEY);
     }
     
     touchesList = [];
@@ -341,4 +341,4 @@ function touchStartup() {
   el.addEventListener("touchmove", momevent, false);
 }
 
-touchStartup();*/
+touchStartup();
