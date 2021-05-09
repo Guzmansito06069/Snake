@@ -1,8 +1,20 @@
-# Snake-v1.0
+# Snake-v1.5
 ## Juego de la viborita - Snake Game
 
-https://gonzacap.github.io/Snake-v1.0/
+https://gonzacap.github.io/Snake-JS/
 
-Creado como practica de JavaScript
+###Creado como practica de JavaScript
 
-Cuendo tenga más tiempo me gustaria hacerle mejoras como incorporar el aumento de dificultad, poner todas las variables en ingles o español y no en "spanglish", borrar comentarios de más, hacerlo responsive y tal vez hacerlo usando Angular pero quien sabe :)
+Actualmente estoy intentando incorprar funciones de pantalla tactil para poder mover la viborita al jugar en moviles
+
+updates:
+* Mejoras visuales
+* Diseño adaptable (responsive)
+* Incorporacion de una cruceta en moviles (aun falta agregarle las funciones)
+
+Aun tengo mejoras que hacerle com:
+* Incorporar aumento de dificultad
+* Poner todas las variables en ingles o español y no en "spanglish" 
+* Borrar comentarios de más
+
+Ya veremos hasta donde escala este pequeño proyecto :)
