@@ -66,6 +66,11 @@ function main() {
 
      moviendo = false;
      juegoActivo = true;
+
+     limpiarLienzo();
+     dibujarComida();
+     desplasarSnake();
+     dibujarSerpiente();
   
      setTimeout( function onTick(){  //esta forma de codigo es eficiente???
 
@@ -83,11 +88,7 @@ function main() {
 
                return;
           }
-
-          limpiarLienzo();
-          dibujarComida();
-          desplasarSnake();
-          dibujarSerpiente();
+          
           main();
      }
      ,200);
@@ -262,8 +263,10 @@ function start(){
      if (!juegoActivo) {
           snake = [...snake_0];
           puntaje = 0;
+          document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
           va = vi;
           dx = va;
+          dy = 0;
           main();
      }
 }
