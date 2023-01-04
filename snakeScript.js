@@ -1,4 +1,4 @@
-//Snake V1.5
+//Snake
 //Hecho por https://github.com/Gonzacap
 //Inspirado en https://www.youtube.com/watch?v=GbPAYZ7tXUY&ab_channel=Appdelante
 //Y basado en https://www.educative.io/blog/javascript-snake-game-tutorial
@@ -23,7 +23,6 @@ const headColor = '#6C5858';
 
 let juegoActivo = false;
 let puntaje = 0;
-//let marcadorPuntaje = puntaje + 2;
 let moviendo = false;
 let vi = 10;   //velocidad inicial
 let va = vi;   //velocidad actual
@@ -72,12 +71,9 @@ function main() {
      desplasarSnake();
      dibujarSerpiente();
   
-     setTimeout( function onTick(){  //esta forma de codigo es eficiente???
+     setTimeout( function onTick(){
 
-          //console.log("width: "+tablero.width)
-          //console.log("height: "+tablero.height)
-
-          if (/*false*/coliciones()){
+          if (coliciones()){
                
                limpiarLienzo();
                snake = [];
@@ -95,8 +91,9 @@ function main() {
 
 }
 
-//(1) Muestrar el tablero y la serpiente
-
+/**
+ * Esta funcion vuelve el tablero y la serpiente a su estado inicial
+ */
 function limpiarLienzo() {
 
     snakeboard_ctx.fillStyle = tableroBackground;
@@ -105,11 +102,18 @@ function limpiarLienzo() {
     snakeboard_ctx.strokeRect(0, 0, tablero.width, tablero.height);
 }
 
+/**
+ * Esta funcion se encarga de manejar el dibujo de la serpiente en el tablero
+ */
 function dibujarSerpiente() {  
      ifHead = true;
      snake.forEach(dibujarPartes);
 }
 
+/**
+ * Esta funcion de dibujar una parte de la serpiente en el tablero
+ * @param {*} snakePart una parte de la serpiernte
+ */
 function dibujarPartes(snakePart) {
 
      if(ifHead){
@@ -122,30 +126,21 @@ function dibujarPartes(snakePart) {
      snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
 
-//(2) Hacer que la serpiente se mueva automáticamente
-
-/*function desplasarSnake() {
-
-     const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-     snake.unshift(head);
-     snake.pop();
-}*/
-
 //(3) Usar las teclas de flecha para cambiar la dirección de la serpiente
 
 document.addEventListener("keydown", movementWithKey); //al precionar una tecla llamo a moverSnake
 document.addEventListener("keypress", movementWithKey); //al precionar una tecla llamo a moverSnake
 
+/**
+ * Funcion para manejar el los eventos de keypress y keydown
+ * @param {*} event 
+ */
 function movementWithKey(event){
-
-     console.log("tecla press "+event.keyCode);
      const keyPressed = event.keyCode;
      moverSnake(keyPressed);
 }
 
 function moverSnake(val) {
-
-     console.log("valor: "+val);
     
      if (moviendo) return;
       
@@ -181,7 +176,6 @@ function coliciones() {
      for(let i=4; i<snake.length; i++){ //verifico que la cabeza no choque con ninguna parte del cuerpo
 
           if (snake[i].x===snake[0].x && snake[i].y===snake[0].y){
-               console.log(i);
                return true;//retorna verdadero porque sucedio una colicion
           } 
      }
@@ -192,7 +186,6 @@ function coliciones() {
      const limiteInf = snake[0].y >= tablero.height - 10;
 
      if(limiteIzq || limiteDer || limiteSup || limiteInf){
-          console.log("chocando con el tablero");
           return true;
      }
      else return false;
@@ -258,6 +251,9 @@ function desplasarSnake() {
 
 //(8) Reiniciar
 
+/**
+ * Esta funcion se encarga de iniciar nuevamente la partida
+ */
 function start(){
 
      if (!juegoActivo) {
@@ -279,7 +275,6 @@ var touchesList = new Array;
 
 function startTouch(event) {
     event.preventDefault();
-    console.log("START");
 }
 
 function getTouchPos (event) {
@@ -295,7 +290,7 @@ function getTouchPos (event) {
 function momevent(event){
 
     var displacement = getTouchPos(event);
-    //console.log("X: "+displacement.x+", Y: "+displacement.y);
+
     touchesList.push(displacement);
 }
 
@@ -316,17 +311,12 @@ function calculateMovement(event) {
     var a = Math.round(Math.trunc(h)/p);
     var b = Math.round(Math.trunc(v)/p);
 
-    if(a == b || a-1==b || a+1==b){
-        console.log("Diagonal Movement");//NO DISPLACEMENT
-    }
     if(a > b){
-        //console.log("Horizontal Movement");
 
         if(x1<x2) moverSnake(RIGHT_KEY);
         else moverSnake(LEFT_KEY);
     }
     else{
-        //console.log("Vertical Movement");
 
         if(y1<y2) moverSnake(DOWN_KEY);
         else moverSnake(UP_KEY);
@@ -340,7 +330,6 @@ function touchStartup() {
 
   el.addEventListener("touchstart", startTouch, false);
   el.addEventListener("touchend", calculateMovement, false);
-  //el.addEventListener("touchcancel", handleCancel, false);
   el.addEventListener("touchmove", momevent, false);
 }
 
