@@ -25,13 +25,13 @@ let juegoActivo = false;
 let puntaje = 0;
 let moviendo = false;
 let vi = 10;   //velocidad inicial
-let va = vi;   //velocidad actual
+let va = 10;   //velocidad actual
 let dx = va;  //velocidad horizontal (originalmente 10)
 let dy = 0;   //velocidad vertical
 let food_x;
 let food_y;
-
-var ifHead;
+let ifHead;
+let tiempoDeRetraso = 200;
 
 const tablero = document.getElementById("tablero");	//obtengo el canbas
 const snakeboard_ctx = tablero.getContext("2d");		//y devuelvo un dibujo 2d
@@ -52,6 +52,8 @@ const RIGHT_KEY = 39;
 const UP_KEY = 38;
 const DOWN_KEY = 40;
 
+document.addEventListener("keydown", movementWithKey); //al precionar una tecla llamo a moverSnake
+document.addEventListener("keypress", movementWithKey); //al precionar una tecla llamo a moverSnake
 
 //-------------------- Start game --------------------
 
@@ -87,7 +89,7 @@ function main() {
           
           main();
      }
-     ,200);
+     , tiempoDeRetraso);
 
 }
 
@@ -125,11 +127,6 @@ function dibujarPartes(snakePart) {
      snakeboard_ctx.fillRect(snakePart.x, snakePart.y, 10, 10);  
      snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
-
-//(3) Usar las teclas de flecha para cambiar la dirección de la serpiente
-
-document.addEventListener("keydown", movementWithKey); //al precionar una tecla llamo a moverSnake
-document.addEventListener("keypress", movementWithKey); //al precionar una tecla llamo a moverSnake
 
 /**
  * Funcion para manejar el los eventos de keypress y keydown
