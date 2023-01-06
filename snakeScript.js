@@ -244,7 +244,7 @@ function desplasarSnake() {
      if(crecer){
           puntaje += 1;
           document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
-          // aumentarDificultad();
+          aumentarDificultad();
           generarComida();
      }
      else{
@@ -253,16 +253,15 @@ function desplasarSnake() {
 }
 
 /**
- * 
+ * Funcion encargada de aumentar la dificultad
+ * Esta funcion reduce el tiempo de retraso para aumentar la velocidad del juego
  */
-/*function aumentarDificultad(){
+function aumentarDificultad(){
 
-     if(puntaje === marcadorPuntaje){
-          
-          vi+=1.5;
-          marcadorPuntaje+=2;
+     if( (puntaje%3) === 0 && tiempoDeRetraso > 50){
+          tiempoDeRetraso -= 50;
      }
-}*/
+}
 
 /**
  * Esta funcion se encarga de iniciar nuevamente la partida
