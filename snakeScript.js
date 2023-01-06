@@ -24,19 +24,18 @@ const headColor = '#6C5858';
 let juegoActivo = false;
 let puntaje = 0;
 let moviendo = false;
-let vi = 10;   //velocidad inicial
-let va = 10;   //velocidad actual
-let dx = va;  //velocidad horizontal (originalmente 10)
-let dy = 0;   //velocidad vertical
+let vi = 10; // velocidad inicial
+let dx = vi; // velocidad horizontal (originalmente 10)
+let dy = 0;  // velocidad vertical
 let food_x;
 let food_y;
 let ifHead;
 let tiempoDeRetraso = 200;
 
-const tablero = document.getElementById("tablero");	//obtengo el canbas
-const snakeboard_ctx = tablero.getContext("2d");		//y devuelvo un dibujo 2d
+const tablero = document.getElementById("tablero");	// recupero el canvas que sera el tablero
+const snakeboard_ctx = tablero.getContext("2d");		// y devuelvo un dibujo 2d
 
-let snake_0 = [ 
+const snake_0 = [ 
 	{x: 200, y: 200}, //cabeza de la serpiente
 	{x: 190, y: 200}, 
 	{x: 180, y: 200}, 
@@ -52,17 +51,20 @@ const RIGHT_KEY = 39;
 const UP_KEY = 38;
 const DOWN_KEY = 40;
 
-document.addEventListener("keydown", movementWithKey); //al precionar una tecla llamo a moverSnake
-document.addEventListener("keypress", movementWithKey); //al precionar una tecla llamo a moverSnake
+// listeners
+document.addEventListener("keydown", movimientoConTeclas); //al precionar una tecla llamo a moverSnake
+document.addEventListener("keypress", movimientoConTeclas); //al precionar una tecla llamo a moverSnake
 
-//-------------------- Start game --------------------
+//-------------------- Inicializar el tablero al cargar la pagina --------------------
 
 limpiarLienzo();
 generarComida();  
 
 //----------------------------------------------------
 
-//funcion principal
+/**
+ * Funcion principal
+ */
 function main() {
 
      moviendo = false;
@@ -94,7 +96,7 @@ function main() {
 }
 
 /**
- * Esta funcion vuelve el tablero y la serpiente a su estado inicial
+ * Esta funcion vuelve el tablero a su estado inicial
  */
 function limpiarLienzo() {
 
@@ -122,7 +124,9 @@ function dibujarPartes(snakePart) {
           snakeboard_ctx.fillStyle = headColor;
           ifHead = false;
      }
-     else      snakeboard_ctx.fillStyle = snakeColor;
+     else {
+          snakeboard_ctx.fillStyle = snakeColor;
+     }
      snakeboard_ctx.strokestyle = snakeBorde; 
      snakeboard_ctx.fillRect(snakePart.x, snakePart.y, 10, 10);  
      snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
@@ -132,80 +136,94 @@ function dibujarPartes(snakePart) {
  * Funcion para manejar el los eventos de keypress y keydown
  * @param {*} event 
  */
-function movementWithKey(event){
+function movimientoConTeclas(event){
      const keyPressed = event.keyCode;
      moverSnake(keyPressed);
 }
 
+/**
+ * Function para cambiar la direccion de movimiento de la serpierte
+ * @param { 
+ *   LEFT_KEY | UP_KEY | RIGHT_KEY | DOWN_KEY 
+ * } val direccion hacia la cual mover la serpiente
+ */
 function moverSnake(val) {
     
      if (moviendo) return;
       
      moviendo = true;
      
-     const haciaArriba = (dy === (-1*va));
-     const haciaAbajo = (dy === va);
-     const haciaDerecha = (dx === va);
-     const haciaIzquierda = (dx === (-1*va));
+     const haciaArriba = (dy === (-1*vi));
+     const haciaAbajo = (dy === vi);
+     const haciaDerecha = (dx === vi);
+     const haciaIzquierda = (dx === (-1*vi));
 
      if (val === LEFT_KEY && !haciaDerecha) {
-          dx = -1*va;
+          dx = -1*vi;
           dy = 0;
      }
      if (val === UP_KEY && !haciaAbajo) {
           dx = 0;
-          dy = -1*va;
+          dy = -1*vi;
      }
      if (val === RIGHT_KEY && !haciaIzquierda) {
-          dx = va;
+          dx = vi;
           dy = 0;
      }
      if (val === DOWN_KEY && !haciaArriba) {
           dx = 0;
-          dy = va;
+          dy = vi;
      }
 }
 
-//(4) Incorporar coliciones
-
+/**
+ * Funcion que verifica si se produjo una colicion
+ * @returns boolean 
+ */
 function coliciones() {
 
-     for(let i=4; i<snake.length; i++){ //verifico que la cabeza no choque con ninguna parte del cuerpo
-
-          if (snake[i].x===snake[0].x && snake[i].y===snake[0].y){
-               return true;//retorna verdadero porque sucedio una colicion
-          } 
-     }
+     // Se retorna verdadero si se produjo una colicion
+     for (let i=4; i<snake.length; i++) if (snake[i].x===snake[0].x && snake[i].y===snake[0].y) return true;
 
      const limiteIzq = snake[0].x <= 0;
      const limiteDer = snake[0].x >= tablero.width - 10;
      const limiteSup = snake[0].y <= 0;
      const limiteInf = snake[0].y >= tablero.height - 10;
 
-     if(limiteIzq || limiteDer || limiteSup || limiteInf){
-          return true;
-     }
-     else return false;
+     if(limiteIzq || limiteDer || limiteSup || limiteInf) return true;
+     
+     return false;
 }
 
-//(5) Incorporar comida
-
+/**
+ * Funcion apra generar coordenadas aleatoreas dentro de un rango [min, max]
+ * @param {int} min minimo valor de la coordenada
+ * @param {int} max maximo valor de la coordenada
+ * @returns int
+ */
 function coordenadaRandom(min, max) {
   return Math.round((Math.random() * (max-min) + min) / 10) * 10;
 }
 
+/**
+ * Funcion que genera la coordenada donde se dibujara la comida
+ */
 function generarComida() {
 
      food_x = coordenadaRandom(10, tablero.width - 20);
      food_y = coordenadaRandom(10, tablero.height - 20);
-     //si la nueva ubicación de comida es donde se encuentra actualmente la serpiente
-     //genere una nueva ubicación de comida
+
+     // Si la nueva ubicación de comida es donde se encuentra actualmente la serpiente
+     // se genere una nueva ubicación para la comida comida
      snake.forEach(function coordenadaValida(part) {
-          const valida = part.x == food_x && part.y == food_y;
-          if (valida) generarComida();
+          const posicionInvalida = part.x == food_x && part.y == food_y;
+          if (posicionInvalida) generarComida();
      });
 }
 
+/**
+ * Funcion para dibujar la comida en el tablero
+ */
 function dibujarComida() {
   snakeboard_ctx.fillStyle = 'grey';
   snakeboard_ctx.strokestyle = 'darkblue';
@@ -213,8 +231,9 @@ function dibujarComida() {
   snakeboard_ctx.strokeRect(food_x, food_y, 10, 10);
 }
 
-//(6) Crecer y Puntuación
-
+/**
+ * Funcion que se encagar de mover la serpiernte actualizando sus coordenadas
+ */
 function desplasarSnake() {
 
      const head = {x: snake[0].x + dx, y: snake[0].y + dy};
@@ -225,7 +244,7 @@ function desplasarSnake() {
      if(crecer){
           puntaje += 1;
           document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
-          //aumentarDificultad();
+          // aumentarDificultad();
           generarComida();
      }
      else{
@@ -233,20 +252,17 @@ function desplasarSnake() {
      }
 }
 
-//(7) Cambiar dificultad
-
-//SE GENERAN INCONSISTENCIAS CON LAS COORDENADAS DE LA COMIDA
-
+/**
+ * 
+ */
 /*function aumentarDificultad(){
 
      if(puntaje === marcadorPuntaje){
           
-          va+=1.5;
+          vi+=1.5;
           marcadorPuntaje+=2;
      }
 }*/
-
-//(8) Reiniciar
 
 /**
  * Esta funcion se encarga de iniciar nuevamente la partida
@@ -257,8 +273,7 @@ function start(){
           snake = [...snake_0];
           puntaje = 0;
           document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
-          va = vi;
-          dx = va;
+          dx = vi;
           dy = 0;
           main();
      }
