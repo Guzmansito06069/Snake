@@ -269,6 +269,7 @@ function aumentarDificultad(){
 function start(){
 
      if (!juegoActivo) {
+          tiempoDeRetraso = 250;
           snake = [...snake_0];
           puntaje = 0;
           document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
