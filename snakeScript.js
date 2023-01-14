@@ -30,7 +30,8 @@ let dy = 0;  // velocidad vertical
 let food_x;
 let food_y;
 let ifHead;
-let tiempoDeRetraso = 250;
+let retrasoInicial = 250;
+let tiempoDeRetraso = retrasoInicial;
 let factor = 0.2; // factor en que se reduce el tiempo de retraso
 let borde_ini = 10;
 let borde_fin = 20;
@@ -277,7 +278,7 @@ function aumentarDificultad(){
 function start(){
 
      if (!juegoActivo) {
-          tiempoDeRetraso = 250;
+          tiempoDeRetraso = retrasoInicial;
           snake = [...snake_0];
           puntaje = 0;
           document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
