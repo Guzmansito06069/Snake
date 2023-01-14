@@ -30,7 +30,11 @@ let dy = 0;  // velocidad vertical
 let food_x;
 let food_y;
 let ifHead;
-let tiempoDeRetraso = 200;
+let retrasoInicial = 250;
+let tiempoDeRetraso = retrasoInicial;
+let factor = 0.2; // factor en que se reduce el tiempo de retraso
+let borde_ini = 10;
+let borde_fin = 20;
 
 const tablero = document.getElementById("tablero");	// recupero el canvas que sera el tablero
 const snakeboard_ctx = tablero.getContext("2d");		// y devuelvo un dibujo 2d
@@ -210,8 +214,8 @@ function coordenadaRandom(min, max) {
  */
 function generarComida() {
 
-     food_x = coordenadaRandom(10, tablero.width - 20);
-     food_y = coordenadaRandom(10, tablero.height - 20);
+     food_x = coordenadaRandom(borde_ini, tablero.width - borde_fin);
+     food_y = coordenadaRandom(borde_ini, tablero.height - borde_fin);
 
      // Si la nueva ubicación de comida es donde se encuentra actualmente la serpiente
      // se genere una nueva ubicación para la comida comida
@@ -244,7 +248,7 @@ function desplasarSnake() {
      if(crecer){
           puntaje += 1;
           document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
-          // aumentarDificultad();
+          aumentarDificultad();
           generarComida();
      }
      else{
@@ -253,16 +257,20 @@ function desplasarSnake() {
 }
 
 /**
- * 
+ * Funcion encargada de aumentar la dificultad
+ * Esta funcion reduce el tiempo de retraso para aumentar la velocidad del juego
  */
-/*function aumentarDificultad(){
+function aumentarDificultad(){
 
-     if(puntaje === marcadorPuntaje){
-          
-          vi+=1.5;
-          marcadorPuntaje+=2;
+     if ( puntaje > 0 && (puntaje%2) === 0 && tiempoDeRetraso > 20 ){
+          tiempoDeRetraso -= ( tiempoDeRetraso * factor) / 1;
      }
-}*/
+
+     if( tiempoDeRetraso <= 80 ){
+          borde_ini = 30;
+          borde_fin = 40;
+     }
+}
 
 /**
  * Esta funcion se encarga de iniciar nuevamente la partida
@@ -270,6 +278,7 @@ function desplasarSnake() {
 function start(){
 
      if (!juegoActivo) {
+          tiempoDeRetraso = retrasoInicial;
           snake = [...snake_0];
           puntaje = 0;
           document.getElementById('score').innerHTML = "Puntaje: "+puntaje;
