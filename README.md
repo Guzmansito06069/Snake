@@ -1,4 +1,4 @@
-# Snake-v1.5
+# Snake
 ## Juego de la viborita - Snake Game
 
 https://gonzacap.github.io/Snake-JS/
