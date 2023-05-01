@@ -1,7 +1,5 @@
 //Snake
-//Hecho por https://github.com/Gonzacap
-//Inspirado en https://www.youtube.com/watch?v=GbPAYZ7tXUY&ab_channel=Appdelante
-//Y basado en https://www.educative.io/blog/javascript-snake-game-tutorial
+
 
 //----------------PASOS--------------
 //(1)Muestrar el tablero y la serpiente
